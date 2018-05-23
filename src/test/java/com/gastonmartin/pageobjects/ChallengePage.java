@@ -17,6 +17,9 @@ public class ChallengePage {
     @FindBy(how = How.ID, using = "checkresults")
     private WebElement checkResults;
 
+    @FindBy(how = How.ID, using = "name")
+    private WebElement name;
+
     /* Answer Slots */
     @FindBy(how = How.ID, using = "answer1")
     private WebElement answer1; //Title of page
@@ -55,6 +58,9 @@ public class ChallengePage {
         checkResults.click();
     }
 
+    public void setName(String t){
+        name.sendKeys(""+t);
+    }
     public void setAnswer1(String answer){
         answer1.sendKeys(""+answer);
     }

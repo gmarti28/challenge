@@ -43,6 +43,8 @@ public class ChallengeTest extends AbstractParameterizedTest{
         page.setAnswer1(page.getTitle());
 
         // Fill out name section of form to be Mariano Arcelus
+        page.setName("Mariano Arcelus");
+
         // Set occupation on form to Scrum Master
         // Count number of black boxes on page after form and enter into Answer Slot #4
         // Click link that says 'Click Me'
