@@ -56,6 +56,8 @@ public class ChallengeTest extends AbstractParameterizedTest{
         page.setPositionByText(page.getDesiredPositionForStep7());
 
         // Get the text from the Red Box and place it in Answer Slot #8
+        page.setAnswer8(page.getRedboxText());
+
         // Which box is on top? orange or green -- place correct background color in Answer Slot #9
         // Type into Answer Slot #10 YES or NO depending on whether item by ID of IAmHere is on the page
         // Type into Answer Slot #11 YES or NO depending on whether item with ID of purplebox is visible

@@ -95,7 +95,11 @@ public class ChallengePage {
     }
 
     public String getRedboxClass(){
-        return redbox.getAttribute("class");
+        return ""+redbox.getAttribute("class");
+    }
+
+    public String getRedboxText(){
+        return ""+redbox.getText();
     }
 
     public void setAnswer1(String answer){
