@@ -24,6 +24,9 @@ public class ChallengePage {
     @FindBy(how = How.ID, using="occupation")
     private WebElement occupation;
 
+    @FindBy(how = How.CSS, using = "span#redbox")
+    private WebElement redbox;
+
     /* Answer Slots */
     @FindBy(how = How.ID, using = "answer1")
     private WebElement answer1; //Title of page
@@ -84,6 +87,11 @@ public class ChallengePage {
                .filter(e->{ return e.getText().equalsIgnoreCase("Black Box"); })
                .count();
     }
+
+    public String getRedboxClass(){
+        return redbox.getAttribute("class");
+    }
+
     public void setAnswer1(String answer){
         answer1.sendKeys(""+answer);
     }

@@ -50,6 +50,8 @@ public class ChallengeTest extends AbstractParameterizedTest{
         page.clickLinksWithText(page.getDesiredLinkTextToClickForStep5());
 
         // Find red box on its page find class applied to it, and enter into Answer Slot #6
+        page.setAnswer6(page.getRedboxClass());
+        
         // Mark radio button on form for position ? to Tech-Lead
         // Get the text from the Red Box and place it in Answer Slot #8
         // Which box is on top? orange or green -- place correct background color in Answer Slot #9
