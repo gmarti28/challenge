@@ -34,12 +34,11 @@ public class ChallengeTest extends AbstractParameterizedTest{
         // Grab Page Title and place title text in Answer Slot #1
         page.setAnswer1(page.getTitle());
 
-        // Fill out name section of form to be Mariano Arcelus
-        page.setName("Mariano Arcelus");
+        // Fill out name section of form to be whatever step 2 states.
+        page.setName(page.getDesiredNameForStep3());
 
         // Set occupation on form to whatever step 3 says so
         String chosenOccupation=page.getDesiredOccupationForStep3();
-        System.out.println("La ocupacion a buscar es " + chosenOccupation);
         page.setOccupationByText(chosenOccupation);
         // Could have used page.setOccupationByValue("sm"); also
         // (Useful if labels are language-specific) but step 3 randomly changes when page is loaded
