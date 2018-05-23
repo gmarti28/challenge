@@ -51,8 +51,10 @@ public class ChallengeTest extends AbstractParameterizedTest{
 
         // Find red box on its page find class applied to it, and enter into Answer Slot #6
         page.setAnswer6(page.getRedboxClass());
-        
-        // Mark radio button on form for position ? to Tech-Lead
+
+        // Mark radio button on form for position
+        page.setPositionByText(page.getDesiredPositionForStep7());
+
         // Get the text from the Red Box and place it in Answer Slot #8
         // Which box is on top? orange or green -- place correct background color in Answer Slot #9
         // Type into Answer Slot #10 YES or NO depending on whether item by ID of IAmHere is on the page

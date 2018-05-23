@@ -27,6 +27,7 @@ public class ChallengePage {
     @FindBy(how = How.CSS, using = "span#redbox")
     private WebElement redbox;
 
+
     /* Answer Slots */
     @FindBy(how = How.ID, using = "answer1")
     private WebElement answer1; //Title of page
@@ -77,6 +78,11 @@ public class ChallengePage {
     public void setOccupationByValue(String value){
         Select s = new Select(occupation);
         s.selectByValue(value);
+    }
+
+    public void setPositionByText(String text){
+        driver.findElement(By.cssSelector("input[name='position'][value='" + text + "']"))
+        .click();
     }
 
     public long countBlackBoxes(){
@@ -143,9 +149,9 @@ public class ChallengePage {
         return driver.findElement(By.cssSelector("li > span#ok_5 + b")).getText();
     }
 
-
-
-
+    public String getDesiredPositionForStep7(){
+        return driver.findElement(By.cssSelector("li > span#ok_7 + b")).getText();
+    }
 
     public void waitPageIsLoaded(int timeoutInSeconds){
         new WebDriverWait(driver, timeoutInSeconds)
