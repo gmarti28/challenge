@@ -117,6 +117,10 @@ public class ChallengePage {
         return ""+driver.getTitle();
     }
 
+    public String getDesiredOccupationForStep3(){
+        return driver.findElement(By.cssSelector("li > span#ok_3 + b")).getText();
+    }
+
 
 
 

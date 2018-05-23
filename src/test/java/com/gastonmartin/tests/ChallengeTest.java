@@ -2,18 +2,9 @@ package com.gastonmartin.tests;
 
 
 import com.gastonmartin.pageobjects.ChallengePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -46,10 +37,12 @@ public class ChallengeTest extends AbstractParameterizedTest{
         // Fill out name section of form to be Mariano Arcelus
         page.setName("Mariano Arcelus");
 
-        // Set occupation on form to Scrum Master
-        page.setOccupationByText("Scrum Master");
-        // Could have used page.setOccupationByValue("sm");
-        // (Useful if labels are language-specific)
+        // Set occupation on form to whatever step 3 says so
+        String chosenOccupation=page.getDesiredOccupationForStep3();
+        System.out.println("La ocupacion a buscar es " + chosenOccupation);
+        page.setOccupationByText(chosenOccupation);
+        // Could have used page.setOccupationByValue("sm"); also
+        // (Useful if labels are language-specific) but step 3 randomly changes when page is loaded
 
         // Count number of black boxes on page after form and enter into Answer Slot #4
         page.setAnswer4(Long.toString(page.countBlackBoxes()));
