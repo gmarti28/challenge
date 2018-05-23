@@ -17,6 +17,25 @@ public class ChallengePage {
     @FindBy(how = How.ID, using = "checkresults")
     private WebElement checkResults;
 
+    /* Answer Slots */
+    @FindBy(how = How.ID, using = "answer1")
+    private WebElement answer1; //Title of page
+    @FindBy(how = How.ID, using = "answer4")
+    private WebElement answer4; //Number of black boxes?:
+    @FindBy(how = How.ID, using = "answer6")
+    private WebElement answer6; //Class of red box?:
+    @FindBy(how = How.ID, using = "answer8")
+    private WebElement answer8; //Text from the red box
+    @FindBy(how = How.ID, using = "answer9")
+    private WebElement answer9; //Which box is on top? Orange or Green
+    @FindBy(how = How.ID, using = "answer10")
+    private WebElement answer10; //Is an item with id of IAmHere present on this page?
+    @FindBy(how = How.ID, using = "answer11")
+    private WebElement answer11; //Is an item with id of purplebox visible on this page?
+    @FindBy(how = How.ID, using = "answer12")
+    private WebElement answer12; //Value of return from got_return_from_js_function?
+
+
     //todo: Add WebElements with their Locators
 
     @FindBy(how = How.ID, using="answer12") //todo: replace this with reference to last Element
@@ -35,6 +54,43 @@ public class ChallengePage {
     public void doCheckResults(){
         checkResults.click();
     }
+
+    public void setAnswer1(String answer){
+        answer1.sendKeys(""+answer);
+    }
+
+    public void setAnswer4(String answer){
+        answer4.sendKeys(""+answer);
+    }
+
+    public void setAnswer6(String answer){
+        answer6.sendKeys(""+answer);
+    }
+
+    public void setAnswer8(String answer){
+        answer8.sendKeys(""+answer);
+    }
+
+    public void setAnswer9(String answer){
+        answer9.sendKeys(""+answer);
+    }
+    public void setAnswer10(String answer){
+        answer10.sendKeys(""+answer);
+    }
+    public void setAnswer11(String answer){
+        answer11.sendKeys(""+answer);
+    }
+    public void setAnswer12(String answer){
+        answer12.sendKeys(""+answer);
+    }
+
+    public String getTitle(){
+        return ""+driver.getTitle();
+    }
+
+
+
+
 
     public void waitPageIsLoaded(int timeoutInSeconds){
         new WebDriverWait(driver, timeoutInSeconds)

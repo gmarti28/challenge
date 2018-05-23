@@ -56,7 +56,6 @@ public abstract class AbstractParameterizedTest {
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             driver.manage().deleteAllCookies();
             driver.manage().window().maximize();
-
         }
     }
 
