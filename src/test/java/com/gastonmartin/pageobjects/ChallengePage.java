@@ -113,15 +113,26 @@ public class ChallengePage {
         answer12.sendKeys(""+answer);
     }
 
+    public void clickLinksWithText(String text){
+        // In case more than one link is present with same text, all of them will get clicked. :0
+        driver.findElements(By.linkText(text)).forEach( e->{
+            e.click();
+        });
+    }
+
     public String getTitle(){
         return ""+driver.getTitle();
     }
 
-    public String getDesiredNameForStep3(){
+    public String getDesiredNameForStep2(){
         return driver.findElement(By.cssSelector("li > span#ok_2 + i + b")).getText();
     }
     public String getDesiredOccupationForStep3(){
         return driver.findElement(By.cssSelector("li > span#ok_3 + b")).getText();
+    }
+
+    public String getDesiredLinkTextToClickForStep5(){
+        return driver.findElement(By.cssSelector("li > span#ok_5 + b")).getText();
     }
 
 

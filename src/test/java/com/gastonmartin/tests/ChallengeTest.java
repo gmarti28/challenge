@@ -35,7 +35,7 @@ public class ChallengeTest extends AbstractParameterizedTest{
         page.setAnswer1(page.getTitle());
 
         // Fill out name section of form to be whatever step 2 states.
-        page.setName(page.getDesiredNameForStep3());
+        page.setName(page.getDesiredNameForStep2());
 
         // Set occupation on form to whatever step 3 says so
         String chosenOccupation=page.getDesiredOccupationForStep3();
@@ -46,7 +46,9 @@ public class ChallengeTest extends AbstractParameterizedTest{
         // Count number of black boxes on page after form and enter into Answer Slot #4
         page.setAnswer4(Long.toString(page.countBlackBoxes()));
 
-        // Click link that says 'Click Me'
+        // Click link that says ... (whatever page stated)
+        page.clickLinksWithText(page.getDesiredLinkTextToClickForStep5());
+
         // Find red box on its page find class applied to it, and enter into Answer Slot #6
         // Mark radio button on form for position ? to Tech-Lead
         // Get the text from the Red Box and place it in Answer Slot #8
