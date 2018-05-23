@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
@@ -46,7 +47,13 @@ public class ChallengeTest extends AbstractParameterizedTest{
         page.setName("Mariano Arcelus");
 
         // Set occupation on form to Scrum Master
+        page.setOccupationByText("Scrum Master");
+        // Could have used page.setOccupationByValue("sm");
+        // (Useful if labels are language-specific)
+
         // Count number of black boxes on page after form and enter into Answer Slot #4
+        page.setAnswer4(Long.toString(page.countBlackBoxes()));
+
         // Click link that says 'Click Me'
         // Find red box on its page find class applied to it, and enter into Answer Slot #6
         // Mark radio button on form for position ? to Tech-Lead

@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
@@ -19,6 +20,9 @@ public class ChallengePage {
 
     @FindBy(how = How.ID, using = "name")
     private WebElement name;
+
+    @FindBy(how = How.ID, using="occupation")
+    private WebElement occupation;
 
     /* Answer Slots */
     @FindBy(how = How.ID, using = "answer1")
@@ -60,6 +64,25 @@ public class ChallengePage {
 
     public void setName(String t){
         name.sendKeys(""+t);
+    }
+
+    public void setOccupationByText(String text){
+        Select s = new Select(occupation);
+        s.selectByVisibleText(text);
+    }
+
+    public void setOccupationByValue(String value){
+        Select s = new Select(occupation);
+        s.selectByValue(value);
+    }
+
+    public long countBlackBoxes(){
+        /* Just to show off I can handle Java 8 ;-)
+         * Also I'd like to avoid miscalculating black boxes based just on classname */
+        return driver.findElements(By.className("blackbox"))
+               .stream()
+               .filter(e->{ return e.getText().equalsIgnoreCase("Black Box"); })
+               .count();
     }
     public void setAnswer1(String answer){
         answer1.sendKeys(""+answer);
