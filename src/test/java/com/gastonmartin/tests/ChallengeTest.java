@@ -59,6 +59,8 @@ public class ChallengeTest extends AbstractParameterizedTest{
         page.setAnswer8(page.getRedboxText());
 
         // Which box is on top? orange or green -- place correct background color in Answer Slot #9
+        page.setAnswer9(page.getTopmostBoxColor());
+
         // Type into Answer Slot #10 YES or NO depending on whether item by ID of IAmHere is on the page
         // Type into Answer Slot #11 YES or NO depending on whether item with ID of purplebox is visible
         // Click the link with text 'Wait'. A random wait will occur and then a new link will be added with text 'Click After Wait'. Click this new link within 500 ms to pass this test

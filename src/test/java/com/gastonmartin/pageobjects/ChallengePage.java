@@ -157,6 +157,24 @@ public class ChallengePage {
         return driver.findElement(By.cssSelector("li > span#ok_7 + b")).getText();
     }
 
+    public String getTopmostBoxColor(){
+
+        /* Based on boxes location on screen determine which one is above the others
+         * and  return its color, stripping the ~box ending */
+        int minY=Integer.MAX_VALUE;
+        WebElement topBox=null;
+        for (WebElement box: driver.findElements(By.cssSelector("span#greenbox,span#orangebox"))
+             ) {
+            int y=box.getLocation().getY();
+            if (y < minY){
+                topBox=box;
+                minY=y;
+            }
+        }
+        if ( topBox == null ) return "";
+        return (""+topBox.getAttribute("id")).replace("box","");
+    }
+
     public void waitPageIsLoaded(int timeoutInSeconds){
         new WebDriverWait(driver, timeoutInSeconds)
                 .until(ExpectedConditions.visibilityOf(lastElementOfPage));
