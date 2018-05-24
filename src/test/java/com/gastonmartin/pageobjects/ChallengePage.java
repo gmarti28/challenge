@@ -9,6 +9,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Comparator;
+import java.util.NoSuchElementException;
+
 
 public class ChallengePage {
 
@@ -157,22 +160,12 @@ public class ChallengePage {
         return driver.findElement(By.cssSelector("li > span#ok_7 + b")).getText();
     }
 
-    public String getTopmostBoxColor(){
-
-        /* Based on boxes location on screen determine which one is above the others
-         * and  return its color, stripping the ~box ending */
-        int minY=Integer.MAX_VALUE;
-        WebElement topBox=null;
-        for (WebElement box: driver.findElements(By.cssSelector("span#greenbox,span#orangebox"))
-             ) {
-            int y=box.getLocation().getY();
-            if (y < minY){
-                topBox=box;
-                minY=y;
-            }
-        }
-        if ( topBox == null ) return "";
-        return (""+topBox.getAttribute("id")).replace("box","");
+     public String getTopmostBoxColor(){
+        return  driver.findElements(By.cssSelector("span#greenbox,span#orangebox"))
+                .stream()
+                .min(Comparator.comparing( e-> e.getLocation().getY()))
+                .orElseThrow(NoSuchElementException::new)
+                .getAttribute("id").replace("box","");
     }
 
     public void waitPageIsLoaded(int timeoutInSeconds){
