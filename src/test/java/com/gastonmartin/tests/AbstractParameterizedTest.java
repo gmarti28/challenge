@@ -53,7 +53,7 @@ public abstract class AbstractParameterizedTest {
                 throw new IllegalArgumentException("Invalid browser name: '" + browser +"'");
         }
         if (driver != null) {
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             driver.manage().deleteAllCookies();
             driver.manage().window().maximize();
         }

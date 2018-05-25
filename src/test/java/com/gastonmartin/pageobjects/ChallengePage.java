@@ -1,14 +1,14 @@
 package com.gastonmartin.pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
+import java.time.Duration;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
@@ -103,6 +103,11 @@ public class ChallengePage {
 
     public String getRedboxText(){
         return ""+redbox.getText();
+    }
+
+    public boolean isItemPresentWithID(String id){
+        // Please notice this search is affected by driver's implicit wait
+        return  driver.findElements(By.id(id)).size() > 0;
     }
 
     public void setAnswer1(String answer){

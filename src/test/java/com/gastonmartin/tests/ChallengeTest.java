@@ -22,12 +22,9 @@ public class ChallengeTest extends AbstractParameterizedTest{
     @BeforeMethod
     public void init(){
         page = PageFactory.initElements(driver,ChallengePage.class);
-        System.out.println("BeforeMethod");
     }
     @Test
     public void doChallenge() throws InterruptedException {
-
-        System.out.println("doChallenge");
         // Navigate to google search page
         page.loadPage();
 
@@ -62,6 +59,8 @@ public class ChallengeTest extends AbstractParameterizedTest{
         page.setAnswer9(page.getTopmostBoxColor());
 
         // Type into Answer Slot #10 YES or NO depending on whether item by ID of IAmHere is on the page
+        page.setAnswer10(page.isItemPresentWithID("IAmHere")? "YES" : "NO");
+
         // Type into Answer Slot #11 YES or NO depending on whether item with ID of purplebox is visible
         // Click the link with text 'Wait'. A random wait will occur and then a new link will be added with text 'Click After Wait'. Click this new link within 500 ms to pass this test
         // Click OK on the Confirm Alert after completing Task 12.
