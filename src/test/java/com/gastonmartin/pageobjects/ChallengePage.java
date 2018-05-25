@@ -170,6 +170,11 @@ public class ChallengePage {
                 .getAttribute("id").replace("box","");
     }
 
+    public Object runScript(String scriptName){
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        return executor.executeScript("return " + scriptName + "();");
+    }
+
     /* Waits */
 
     public void waitPageIsLoaded(){

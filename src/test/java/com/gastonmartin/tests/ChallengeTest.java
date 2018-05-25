@@ -77,8 +77,12 @@ public class ChallengeTest extends AbstractParameterizedTest{
         page.waitAlert(5,100).accept();
 
         // 14. Run JavaScript function as: ran_this_js_function() from your Selenium script
+        page.runScript("ran_this_js_function");
+
         // 15. Run JavaScript function as: got_return_from_js_function() from your Selenium script, take returned value and place it in Answer Slot #12
+        page.setAnswer12(""+page.runScript("got_return_from_js_function"));
         // 16. Click the Submit button on the form
+        
 
         page.doCheckResults();
 
