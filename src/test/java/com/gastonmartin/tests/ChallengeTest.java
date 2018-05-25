@@ -62,6 +62,8 @@ public class ChallengeTest extends AbstractParameterizedTest{
         page.setAnswer10(page.isItemPresentWithID("IAmHere")? "YES" : "NO");
 
         // Type into Answer Slot #11 YES or NO depending on whether item with ID of purplebox is visible
+        page.setAnswer11(page.isPurpleBoxVisible()? "YES" : "NO");
+
         // Click the link with text 'Wait'. A random wait will occur and then a new link will be added with text 'Click After Wait'. Click this new link within 500 ms to pass this test
         // Click OK on the Confirm Alert after completing Task 12.
         // Run JavaScript function as: ran_this_js_function() from your Selenium script

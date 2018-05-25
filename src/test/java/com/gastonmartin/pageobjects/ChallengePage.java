@@ -30,6 +30,10 @@ public class ChallengePage {
     @FindBy(how = How.CSS, using = "span#redbox")
     private WebElement redbox;
 
+    private final String purpleboxID="purplebox"; // I need to use this also for last element
+    @FindBy(how = How.ID, using = purpleboxID)
+    private WebElement purplebox;
+
 
     /* Answer Slots */
     @FindBy(how = How.ID, using = "answer1")
@@ -48,13 +52,6 @@ public class ChallengePage {
     private WebElement answer11; //Is an item with id of purplebox visible on this page?
     @FindBy(how = How.ID, using = "answer12")
     private WebElement answer12; //Value of return from got_return_from_js_function?
-
-
-    //todo: Add WebElements with their Locators
-
-    @FindBy(how = How.ID, using="answer12") //todo: replace this with reference to last Element
-    private WebElement lastElementOfPage;
-
 
     public ChallengePage(WebDriver driver) {
         this.driver=driver;
@@ -108,6 +105,10 @@ public class ChallengePage {
     public boolean isItemPresentWithID(String id){
         // Please notice this search is affected by driver's implicit wait
         return  driver.findElements(By.id(id)).size() > 0;
+    }
+
+    public boolean isPurpleBoxVisible(){
+        return purplebox.isDisplayed();
     }
 
     public void setAnswer1(String answer){
@@ -174,8 +175,11 @@ public class ChallengePage {
     }
 
     public void waitPageIsLoaded(int timeoutInSeconds){
+        /* Given the very last element of page is the purplebox, which is not always visible
+         * the expectation visibilityOf cannot be used and so I had to switch to
+         * presenceOfElementLocated(By locator) instead. */
         new WebDriverWait(driver, timeoutInSeconds)
-                .until(ExpectedConditions.visibilityOf(lastElementOfPage));
+                .until(ExpectedConditions.presenceOfElementLocated(By.id(purpleboxID)));
     }
 
     public void waitPageIsLoaded(){
