@@ -1,16 +1,12 @@
 package com.gastonmartin.pageobjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
 import java.util.Comparator;
-import java.util.NoSuchElementException;
 
 
 public class ChallengePage {
@@ -170,8 +166,14 @@ public class ChallengePage {
         return  driver.findElements(By.cssSelector("span#greenbox,span#orangebox"))
                 .stream()
                 .min(Comparator.comparing( e-> e.getLocation().getY()))
-                .orElseThrow(NoSuchElementException::new)
+                .orElseThrow(java.util.NoSuchElementException::new)
                 .getAttribute("id").replace("box","");
+    }
+
+    /* Waits */
+
+    public void waitPageIsLoaded(){
+        waitPageIsLoaded(10); //Default timeout in seconds.
     }
 
     public void waitPageIsLoaded(int timeoutInSeconds){
@@ -182,7 +184,24 @@ public class ChallengePage {
                 .until(ExpectedConditions.presenceOfElementLocated(By.id(purpleboxID)));
     }
 
-    public void waitPageIsLoaded(){
-        waitPageIsLoaded(10); //Default timeout in seconds.
+    public void waitLinkAndClickWithLinkText(String linkText, long timeOutInSeconds, long pollingInterval){
+        waitElementAndClick(By.linkText(linkText),timeOutInSeconds, pollingInterval);
+    }
+
+    public void waitElementAndClick(By locator, long timeOutInSeconds, long pollingInterval){
+
+        Wait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(timeOutInSeconds))
+                .pollingEvery(Duration.ofMillis(pollingInterval))
+                .ignoring(org.openqa.selenium.NoSuchElementException.class);
+
+        wait.until(ExpectedConditions.elementToBeClickable(locator))
+                .click();
+    }
+
+    public Alert waitAlert(long waitSeconds, long pollingIntervalInMillis ){
+        WebDriverWait wait = new WebDriverWait(driver,waitSeconds, pollingIntervalInMillis);
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        return alert;
     }
 }

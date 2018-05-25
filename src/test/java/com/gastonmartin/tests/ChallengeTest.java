@@ -2,7 +2,10 @@ package com.gastonmartin.tests;
 
 
 import com.gastonmartin.pageobjects.ChallengePage;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -21,58 +24,65 @@ public class ChallengeTest extends AbstractParameterizedTest{
 
     @BeforeMethod
     public void init(){
+        // I could have used this init statement inside PageObejct own's constructor instead.
         page = PageFactory.initElements(driver,ChallengePage.class);
     }
     @Test
     public void doChallenge() throws InterruptedException {
-        // Navigate to google search page
+
+        // Navigate to Challenge page
         page.loadPage();
 
-        // Grab Page Title and place title text in Answer Slot #1
+        // 1. Grab Page Title and place title text in Answer Slot #1
         page.setAnswer1(page.getTitle());
 
-        // Fill out name section of form to be whatever step 2 states.
+        // 2. Fill out name section of form to be whatever step 2 states.
         page.setName(page.getDesiredNameForStep2());
 
-        // Set occupation on form to whatever step 3 says so
+        // 3. Set occupation on form to whatever step 3 says so
         String chosenOccupation=page.getDesiredOccupationForStep3();
         page.setOccupationByText(chosenOccupation);
         // Could have used page.setOccupationByValue("sm"); also
         // (Useful if labels are language-specific) but step 3 randomly changes when page is loaded
 
-        // Count number of black boxes on page after form and enter into Answer Slot #4
+        // 4. Count number of black boxes on page after form and enter into Answer Slot #4
         page.setAnswer4(Long.toString(page.countBlackBoxes()));
 
-        // Click link that says ... (whatever page stated)
+        // 5. Click link that says ... (whatever page stated)
         page.clickLinksWithText(page.getDesiredLinkTextToClickForStep5());
 
-        // Find red box on its page find class applied to it, and enter into Answer Slot #6
+        // 6. Find red box on its page find class applied to it, and enter into Answer Slot #6
         page.setAnswer6(page.getRedboxClass());
 
-        // Mark radio button on form for position
+        // 7. Mark radio button on form for position
         page.setPositionByText(page.getDesiredPositionForStep7());
 
-        // Get the text from the Red Box and place it in Answer Slot #8
+        // 8. Get the text from the Red Box and place it in Answer Slot #8
         page.setAnswer8(page.getRedboxText());
 
-        // Which box is on top? orange or green -- place correct background color in Answer Slot #9
+        // 9. Which box is on top? orange or green -- place correct background color in Answer Slot #9
         page.setAnswer9(page.getTopmostBoxColor());
 
-        // Type into Answer Slot #10 YES or NO depending on whether item by ID of IAmHere is on the page
+        // 10. Type into Answer Slot #10 YES or NO depending on whether item by ID of IAmHere is on the page
         page.setAnswer10(page.isItemPresentWithID("IAmHere")? "YES" : "NO");
 
-        // Type into Answer Slot #11 YES or NO depending on whether item with ID of purplebox is visible
+        // 11. Type into Answer Slot #11 YES or NO depending on whether item with ID of purplebox is visible
         page.setAnswer11(page.isPurpleBoxVisible()? "YES" : "NO");
 
-        // Click the link with text 'Wait'. A random wait will occur and then a new link will be added with text 'Click After Wait'. Click this new link within 500 ms to pass this test
-        // Click OK on the Confirm Alert after completing Task 12.
-        // Run JavaScript function as: ran_this_js_function() from your Selenium script
-        // Run JavaScript function as: got_return_from_js_function() from your Selenium script, take returned value and place it in Answer Slot #12
-        // Click the Submit button on the form
+        // 12. Click the link with text 'Wait'. A random wait will occur and then a new link will be added with text 'Click After Wait'. Click this new link within 500 ms to pass this test
+        page.clickLinksWithText("Wait"); // I could have borrowed the expected text from its statement as I did for steps #2, #3 and #5
+        page.waitLinkAndClickWithLinkText("Click After Wait", 10,100);
 
-        // Aesthetic wait to allow last action to be noticed by human observer ;)
+        // 13. Click OK on the Confirm Alert after completing Task 12.
+        page.waitAlert(5,100).accept();
+
+        // 14. Run JavaScript function as: ran_this_js_function() from your Selenium script
+        // 15. Run JavaScript function as: got_return_from_js_function() from your Selenium script, take returned value and place it in Answer Slot #12
+        // 16. Click the Submit button on the form
 
         page.doCheckResults();
+
+        // Aesthetic wait to allow last action to be noticed by human observer ;)
         Thread.sleep(8000);
 
     }
