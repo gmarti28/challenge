@@ -2,10 +2,7 @@ package com.gastonmartin.tests;
 
 
 import com.gastonmartin.pageobjects.ChallengePage;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -81,10 +78,13 @@ public class ChallengeTest extends AbstractParameterizedTest{
 
         // 15. Run JavaScript function as: got_return_from_js_function() from your Selenium script, take returned value and place it in Answer Slot #12
         page.setAnswer12(""+page.runScript("got_return_from_js_function"));
-        // 16. Click the Submit button on the form
-        
 
-        page.doCheckResults();
+        // 16. Click the Submit button on the form
+        page.clickSubmit();
+
+
+        // THIS STEP WAS NOT EXPECTED TO BE PERFORMED BY TEST ITSELF
+        page.clickCheckResults();
 
         // Aesthetic wait to allow last action to be noticed by human observer ;)
         Thread.sleep(8000);

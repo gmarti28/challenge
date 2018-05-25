@@ -30,6 +30,8 @@ public class ChallengePage {
     @FindBy(how = How.ID, using = purpleboxID)
     private WebElement purplebox;
 
+    @FindBy(how = How.ID, using = "submitbutton")
+    private WebElement submit;
 
     /* Answer Slots */
     @FindBy(how = How.ID, using = "answer1")
@@ -58,7 +60,7 @@ public class ChallengePage {
         waitPageIsLoaded();
     }
 
-    public void doCheckResults(){
+    public void clickCheckResults(){
         checkResults.click();
     }
 
@@ -141,6 +143,10 @@ public class ChallengePage {
         driver.findElements(By.linkText(text)).forEach( e->{
             e.click();
         });
+    }
+
+    public void clickSubmit(){
+        submit.click();
     }
 
     public String getTitle(){
