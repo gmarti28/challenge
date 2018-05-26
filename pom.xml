@@ -20,19 +20,8 @@
     <name>resolucion-challenge</name>
   <url>http://maven.apache.org</url>
   <repositories>
-    <!--repository>
-      <id>jcenter</id>
-      <name>bintray</name>
-      <url>http://jcenter.bintray.com</url>
-    </repository-->
   </repositories>
   <dependencies>
-    <!--dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency-->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>

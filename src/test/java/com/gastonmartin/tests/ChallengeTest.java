@@ -5,6 +5,9 @@ import com.gastonmartin.pageobjects.ChallengePage;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import java.util.stream.IntStream;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -83,11 +86,27 @@ public class ChallengeTest extends AbstractParameterizedTest{
         page.clickSubmit();
 
 
-        // THIS STEP WAS NOT EXPECTED TO BE PERFORMED BY TEST ITSELF
+        // The following actions were not requested by challenge. It's an addition on my own
+        // 1. Check the results of the challenge
         page.clickCheckResults();
 
-        // Aesthetic wait to allow last action to be noticed by human observer ;)
+        // 2. Assert each step got an "OK" result.
+        SoftAssert soft = new SoftAssert();
+
+        IntStream.range(1, 16)
+                .forEach( n->{
+                    soft.assertEquals(page.getResult(n), "OK","Result #"+n+" was not ok.");
+                });
+
+
+        // 3. Take a screenshot of the page and store in screenshots/ folder.
+        page.takeScreenshot();
+
+        // 4. Sleep for 8 seconds so the human observer can see the results.
+        //    Intended for this challenge only. Having sleeps in test code is not best practice.
         Thread.sleep(8000);
 
+        // 5. Check all assertions together. If more than one assertion fails, you get all the failures.
+        soft.assertAll();
     }
 }

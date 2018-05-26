@@ -5,7 +5,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Calendar;
 import java.util.Comparator;
 
 
@@ -50,6 +55,7 @@ public class ChallengePage {
     private WebElement answer11; //Is an item with id of purplebox visible on this page?
     @FindBy(how = How.ID, using = "answer12")
     private WebElement answer12; //Value of return from got_return_from_js_function?
+
 
     public ChallengePage(WebDriver driver) {
         this.driver=driver;
@@ -176,6 +182,10 @@ public class ChallengePage {
                 .getAttribute("id").replace("box","");
     }
 
+    public String getResult(int resultNumber){
+        return ""+driver.findElement(By.cssSelector("span#ok_"+resultNumber)).getText();
+    }
+
     public Object runScript(String scriptName){
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         return executor.executeScript("return " + scriptName + "();");
@@ -214,5 +224,39 @@ public class ChallengePage {
         WebDriverWait wait = new WebDriverWait(driver,waitSeconds, pollingIntervalInMillis);
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         return alert;
+    }
+
+    public void takeScreenshot(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-hhmmss");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("screenshots")
+                .append(File.separator)
+                .append("ChallengePage")
+                .append("-")
+                .append(sdf.format(Calendar.getInstance().getTime()))
+                .append(".png");
+        takeScreenshot(new File(sb.toString()));
+    }
+
+    public void takeScreenshot(File destination){
+        if ( driver instanceof JavascriptExecutor){
+            // Try to scroll the window to the top
+            JavascriptExecutor js = (JavascriptExecutor)driver;
+            js.executeScript("window.scrollTo(0,0)");
+        }
+
+        if (driver instanceof  TakesScreenshot) {
+            TakesScreenshot ts = (TakesScreenshot)driver;
+            File source = ts.getScreenshotAs(OutputType.FILE);
+            try {
+                Files.copy(source.toPath(), destination.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Screenshot taken at " + destination.getAbsolutePath());
+        } else {
+            System.err.println("Current WebDriver doesn't implement TakesScreenshot");
+        }
     }
 }
