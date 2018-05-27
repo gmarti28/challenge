@@ -30,14 +30,11 @@ public class ChallengeTest extends AbstractParameterizedTest{
     @Test
     public void doChallenge() throws InterruptedException {
 
-        // Navigate to Challenge page
-        page.loadPage();
 
-        // 1. Grab Page Title and place title text in Answer Slot #1
-        page.setAnswer1(page.getTitle());
-
-        // 2. Fill out name section of form to be whatever step 2 states.
-        page.setName(page.getDesiredNameForStep2());
+        // Some CHAINED method calls to illustrate the advantages of a PageObject returning itself on calls
+        page.loadPage() // Navigate to Challenge page
+            .setAnswer1(page.getTitle()) // 1. Grab Page Title and place title text in Answer Slot #1
+            .setName(page.getDesiredNameForStep2()); // 2. Fill out name section of form to be whatever step 2 states
 
         // 3. Set occupation on form to whatever step 3 says so
         String chosenOccupation=page.getDesiredOccupationForStep3();
