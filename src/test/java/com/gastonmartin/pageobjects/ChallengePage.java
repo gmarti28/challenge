@@ -3,6 +3,7 @@ package com.gastonmartin.pageobjects;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.*;
 
 import java.io.File;
@@ -61,10 +62,10 @@ public class ChallengePage {
         this.driver=driver;
     }
 
-    public ChallengePage loadPage(){
+
+    public static ChallengePage navigateTo(WebDriver driver){
         driver.get(URL);
-        waitPageIsLoaded();
-        return this; // Because it's a good practice to return a Page Object on each operation
+        return PageFactory.initElements(driver, ChallengePage.class);
     }
 
     public ChallengePage clickCheckResults(){

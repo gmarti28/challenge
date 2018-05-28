@@ -9,9 +9,6 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.stream.IntStream;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-
 
 public class ChallengeTest extends AbstractParameterizedTest{
 
@@ -32,9 +29,10 @@ public class ChallengeTest extends AbstractParameterizedTest{
 
 
         // Some CHAINED method calls to illustrate the advantages of a PageObject returning itself on calls
-        page.loadPage() // Navigate to Challenge page
-            .setAnswer1(page.getTitle()) // 1. Grab Page Title and place title text in Answer Slot #1
-            .setName(page.getDesiredNameForStep2()); // 2. Fill out name section of form to be whatever step 2 states
+        page = ChallengePage.navigateTo(driver) // Navigate to Challenge page
+                .waitPageIsLoaded() // Wait until last element of page is loaded (even if not visible)
+                .setAnswer1(page.getTitle()) // 1. Grab Page Title and place title text in Answer Slot #1
+                .setName(page.getDesiredNameForStep2()); // 2. Fill out name section of form to be whatever step 2 states
 
         // 3. Set occupation on form to whatever step 3 says so
         String chosenOccupation=page.getDesiredOccupationForStep3();
