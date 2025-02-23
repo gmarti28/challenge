@@ -1,4 +1,4 @@
-# Challenge resolution
+# A Challenge using Spring Security
 
 ## Selected technology stack
 
